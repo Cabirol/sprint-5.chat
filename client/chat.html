@@ -1,36 +1,36 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Socket.IO playground</title>
-    <style>
-      body {
-        color: #333333;
-        font-family: arial;
-        max-width: 650px;
-        margin: 0 auto;
-        padding: 0 16px;
-      }
-    </style>
+    <title>Chat</title>
+    <link rel="icon" href="/img/favicon.png">
+    <link rel="stylesheet" href="css/styles.css">
   </head>
+
   <body>
 
-    <h1>Socket.IO playground</h1>
-    <p>Exemple d'aplicació Socket bàsica amb comuniació entre server i client separats.</p>
+    <div class="chat">
+      <div class="chat__left">
+        <div id="sidebar" class="chat__sidebar"></div>
+        <div class="buttons">
+          <button>Change Room</button>
+          <button>Log out</button>  
+        </div>
+      </div>
+      
+      
+      <div class="chat__main">
+        <div id="messages" class="chat__messages"></div>
 
-    <script src="http://localhost:3000/socket.io/socket.io.js"></script>
-    <script>
-      const socket = io("http://localhost:3000");
+          <div class="compose">
+              <form id="message-form">
+                  <input name="inputMessage" placeholder="Message" required autocomplete="off">
+                  <button>Send</button>
+              </form>
+          </div>
+        </div>
+      </div>
 
-      socket.on("hello", (arg) => {
-        console.log(arg);
-      });
 
-      setInterval(() => {
-        socket.emit("howareyou", "client li diu how are you al server");
-      }, 5000);
-  
-
-    </script>
-
+    </div>
   </body>
 </html>
