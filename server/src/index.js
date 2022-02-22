@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 require('./db/mongoose.js');
 
 const router = require('./routers/routers.js');
@@ -26,9 +27,8 @@ io.on("connection", (socket) => {
   
 });
 */
-
+app.use(cors());
 app.use(express.json());
-
 app.use(router);
 
 server.listen(3000, () => {
