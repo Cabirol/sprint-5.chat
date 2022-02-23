@@ -26,7 +26,11 @@ router.post('/users/login', async (req, res)=>{
     }
 });
 
-//agafar el teu usuari i afegir-lo a nova sala
+router.get('/users/me', auth, async (req, res)=>{
+    res.send(req.user);
+});
+
+//TODO agafar el teu usuari i afegir-lo a nova sala
 router.post('/users/me', auth, async (req, res)=>{
     const room = new Room(req.body);
     try{
@@ -37,20 +41,11 @@ router.post('/users/me', auth, async (req, res)=>{
         res.status(400).json(e);
     }
 });
-
+//TODO get: obtenir llista de sales i nombre d'usuaris connectats
 router.get('/users/me/rooms', async (req, res)=>{
-    try{
-        const users = await User.find().select({ name: 1, room: 1 });
-        const rooms = [];
-        for (const user in users){
-            if (user.room){
-                rooms.push({room: user.room});
-            }
-        }
-        res.status(200).json(rooms);
-    }catch(e){
-        res.status(400).json(e);
-    }
+    //Obté la llista de rooms amb els usuaris que hi ha a cadascuna
 });
+
+//TODO donada una sala, afegir-hi l'usuari
 
 module.exports = router;
