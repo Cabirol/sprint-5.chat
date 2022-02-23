@@ -14,17 +14,22 @@ postNewUser = async (objectData) => {
         const data = await res.json();
         //Enlloc de console.log, la funció ha de fer servir la info.
         console.log(data);
+        //TODO gestionar errors
+        window.localStorage.setItem('user_data', data)
+        // redirigeix cap a rooms
+        window.location='./rooms.html';
     }catch(e){
         console.log(e);
     }  
 };
 
-const signUpForm = document.getElementById('signUpForm');
+const signUpButton = document.getElementById('signup');
 
-signUpForm.addEventListener('submit', (e)=>{
+signUpButton.addEventListener('click', (e)=>{
     e.preventDefault();
-    const formData = new FormData(signUpForm);
-    const objectData = {};
-    formData.forEach((value, key) => objectData[key] = value);
+    //Només te en compte el que hi ha dins del signup?
+    const name = document.getElementById('name');
+    const password = document.getElementById('password');
+    const objectData = {name: name.value, password: password.value};
     postNewUser(objectData);
 });

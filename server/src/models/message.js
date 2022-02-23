@@ -4,14 +4,14 @@ const Message = mongoose.model('Message', {
     text: {
         type: String,
         required: true
-    },
-    room: {
-        type: String,
-        required: true
-    },
-    date: { 
+    },date: { 
         type: Date, 
         default: Date.now 
+    },
+    room: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref:'Room'
     },
     owner: {
         type: mongoose.Schema.Types.ObjectId,
