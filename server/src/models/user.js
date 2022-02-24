@@ -8,7 +8,6 @@ const userSchema = new mongoose.Schema({
     name: {
         type: String,
         unique: true,
-        //TODO validation error for uniqueness
         required: true,
         trim: true,
         minlength: 3,
