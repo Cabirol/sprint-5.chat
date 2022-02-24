@@ -7,56 +7,29 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <!--- <div class="room">
+    <div class="room">
+
         <div id="room__sidebar" class="room__sidebar">
+
+            <div class="welcome"></div>
             <p>Join an existent room:</p>
+            <div class="buttons_box"></div>
 
         </div>
+
         <div class="centered-form-room">
             <div class="centered-form-room__box">
-                <p>Create a new room:</p>
+                <p>...or create a new room:</p>
                 <h1>New room</h1>
-                <form action="/chat.html">
-                    <label>Name</label>
-                    <input type="text" name="room" placeholder="Room" required>
-                    <button>Join</button>
+                <form>
+                    <label for="roomName">Name</label>
+                    <input type="text" id="roomName" placeholder="Room" required autocomplete="off">
+                    <button id="newRoom">Join</button>
                 </form>
             </div>
-    
-        </div>
-    </div> -->
-    <div class="centered-form">
-        <div class="centered-form__box">
-            <!-- <p>Hello, user.</p> -->
-            <div class="saludo"></div>
-            <h1>Enter room</h1>
-
-            <form>
-                <label for="name">Display name</label>
-                <input type="text" name="name" id="signName" placeholder="Display name" required autocomplete="off">
-                <label for="password">Password</label>
-                <input type="password" name="password" id="signPassword" placeholder="Password" required autocomplete="off">
-                <button id="signup">Join</button>
-            </form>
-
         </div>
 
-        
-    </div>
-    <div class="centered-form">
-        <div class="centered-form__box">
-            <p>Already a user?</p>
-            <h1>Log in</h1>
-
-            <form>
-                <label for="name">Display name</label>
-                <input type="text" name="name" id="logName" placeholder="Display name" required autocomplete="off">
-                <label for="password">Password</label>
-                <input type="password" name="password" id="logPassword" placeholder="Password" required autocomplete="off">
-                <button id="login">Join</button>
-            </form>
-
-        </div>
+    </div> 
 
         
     </div>

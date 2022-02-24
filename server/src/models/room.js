@@ -6,7 +6,7 @@ const roomSchema = new mongoose.Schema({
         unique: true,
         required: true,
         trim: true,
-        maxlenght: 10
+        maxlength: 10
     } 
 });
 

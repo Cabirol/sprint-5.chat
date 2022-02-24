@@ -26,26 +26,49 @@ router.post('/users/login', async (req, res)=>{
     }
 });
 
+//Obtenir usuari
 router.get('/users/me', auth, async (req, res)=>{
     res.send(req.user);
 });
 
-//TODO agafar el teu usuari i afegir-lo a nova sala
-router.post('/users/me', auth, async (req, res)=>{
+//Crear nova sala
+router.post('/users/me/rooms', auth, async (req, res)=>{
     const room = new Room(req.body);
     try{
         await room.save();
-        req.user.room = room.name;
-        res.status(201).json({user, room});
+        res.status(201).json(room);
     }catch(e){
         res.status(400).json(e);
     }
 });
-//TODO get: obtenir llista de sales i nombre d'usuaris connectats
-router.get('/users/me/rooms', async (req, res)=>{
-    //Obté la llista de rooms amb els usuaris que hi ha a cadascuna
+
+//array d'objectes {nomSala, nombresUsuarisconnectats} descendent
+router.get('/users/me/rooms', auth, async (req, res)=>{
+    try{
+        const rooms = await Room.find({},{_id:0,__v:0});
+        const populatedRooms = [];
+        for (const room of rooms){
+            const numUsers = await User.find({room:room.name}).count();
+            const populatedRoom = {name:room.name, numUsers};
+            populatedRooms.push(populatedRoom);
+        }
+        res.status(200).json(populatedRooms.sort((a, b) => {
+            return b.numUsers - a.numUsers
+        }));
+    }catch(e){
+        res.status(400).json(e);
+    }
 });
 
-//TODO donada una sala, afegir-hi l'usuari
+//donada una sala, l'afegeix a l'usuari
+router.patch('/users/me/rooms', auth, async(req,res)=>{
+    req.user.room = req.body.room;
+    try{
+        await req.user.save();
+        res.status(201).json(req.user);
+    } catch(e){
+        res.status(400).json(e);
+    }
+});
 
 module.exports = router;

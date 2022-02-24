@@ -94,7 +94,7 @@ button:disabled {
     color: #fff;
     background: #333744;
     width: 300px;
-    overflow-y: scroll
+    overflow-y: scroll;
 }
 
 .centered-form-room {
@@ -142,13 +142,16 @@ button:disabled {
     overflow-y: scroll
 }
 
-.buttons {
+.buttons_box {
     display: flex;
+    flex-direction: column;
     flex-shrink: 0;
-    margin-top: 16px;
-    padding: 24px;
+    padding: 12px
 }
 
+.sidebar_buttons {
+    margin-top: 4px;
+}
 /* Chat styles */
 
 .chat__main {
