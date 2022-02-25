@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>Chat</title>
-    <link rel="icon" href="/img/favicon.png">
+    <!-- <link rel="icon" href="/img/favicon.png"> -->
     <link rel="stylesheet" href="css/styles.css">
   </head>
 
@@ -12,12 +12,13 @@
       
       <div class="chat__left">
         <div id="sidebar" class="chat__sidebar"></div>
+        
         <div class="buttons_box">
           <button class="sidebar_buttons">Change Room</button>
           <button class="sidebar_buttons">Log out</button>
         </div>
+
       </div>
-      
       
       <div class="chat__main">
         <div id="messages" class="chat__messages"></div>
@@ -33,6 +34,7 @@
 
     </div>
 
-    <script src="./js/rooms.js"></script>
+    <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+    <script src="./js/chat.js"></script>
   </body>
 </html>

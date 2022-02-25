@@ -5,9 +5,10 @@ require('./db/mongoose.js');
 const router = require('./routers/routers.js');
 
 const app = express();
+
 const http = require('http');
 const server = http.createServer(app);
-/*
+
 const { Server } = require("socket.io");
 const io = new Server(server, {
   cors: {
@@ -15,18 +16,21 @@ const io = new Server(server, {
   }
 });
 
-
 io.on("connection", (socket) => {
-  
+  console.log('New websocket connection');
 
-  setInterval(() => socket.emit("hello", "server li diu hello al client"), 5000);
+  socket.on('join', async (data) => {
+    try{
+      console.log(data);
+    }catch(e){
+      console.log(e);
+    }
 
-  socket.on("howareyou", (arg) => {
-  console.log(arg);
+    //TODO continuar: posat socket al usuari ,etc.
+  });
+
 });
-  
-});
-*/
+
 app.use(cors());
 app.use(express.json());
 app.use(router);

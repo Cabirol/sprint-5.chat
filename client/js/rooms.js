@@ -75,8 +75,8 @@ const getUserInRoom = async (req) => {
             body: JSON.stringify(req)
         });
         const data = await res.json();
-        console.log(data);
-        //TODO enviar usuari a xat
+        window.sessionStorage.setItem('user_data', JSON.stringify(data));
+        window.location='./chat.html';
     }catch(e){
         console.log(e);
     }
@@ -84,8 +84,7 @@ const getUserInRoom = async (req) => {
 
 //Coses que s'executen al obrir la pàgina(es carrega nom usuari i botons de sales)
 
-getUser()
-.then(nom => welcome.innerHTML = `<h1>Hello, ${nom}</h1>`);
+getUser().then(nom => welcome.innerHTML = `<h1>Hello, ${nom}</h1>`);
 
 getRooms().then((rooms)=>{
     var insertion = ``;
@@ -113,7 +112,7 @@ newRoomButton.addEventListener('click', (e)=>{
     const objectData = {name: name.value};
     
     createRoom(objectData)
-    .then((room)=>getUserInRoom({room:room.name}))
+    .then((room)=>getUserInRoom({room: room.name}))
     .catch(e=>undefined);
 });
 
