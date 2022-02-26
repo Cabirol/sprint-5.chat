@@ -10,12 +10,6 @@ const roomSchema = new mongoose.Schema({
     } 
 });
 
-roomSchema.virtual('messages',{
-    ref: 'Message',
-    localField: '_id',
-    foreignField: 'room'
-});
-
 const Room = mongoose.model('Room', roomSchema);
 
 module.exports = Room;

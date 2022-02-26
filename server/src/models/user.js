@@ -23,19 +23,14 @@ const userSchema = new mongoose.Schema({
         type: String,
         trim: true,
         maxlenght: 10,
-        default: ''
     },
     token: {
-        type: String,
-        required: true
+        type: String
+    },
+    socket: {
+        type: String
     }
 
-});
-
-userSchema.virtual('messages',{
-    ref: 'Message',
-    localField: '_id',
-    foreignField: 'owner'
 });
 
 userSchema.methods.generateAuthToken = async function(){

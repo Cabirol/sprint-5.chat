@@ -1,4 +1,4 @@
-const api = 'http://localhost:3000';
+const apiURL = 'http://localhost:3000';
 const userData = JSON.parse(window.sessionStorage.getItem('user_data'));
 const welcome = document.querySelector('.welcome');
 const roomSidebar = document.querySelector('.buttons_box');
@@ -8,7 +8,7 @@ const newRoomButton = document.getElementById('newRoom');
 
 const getUser = async () => {
     try{
-        const res = await fetch(api+'/users/me', {
+        const res = await fetch(apiURL+'/users/me', {
             method: 'GET',
             headers: {
                 'Content-Type':'application/json',
@@ -16,6 +16,7 @@ const getUser = async () => {
             }
         });
         const data = await res.json();
+        
         return data.name;
     }catch(e){
         console.log(e);
@@ -25,7 +26,7 @@ const getUser = async () => {
 
 const createRoom = async (req) => {
     try{
-        const res = await fetch(api+'/users/me/rooms', {
+        const res = await fetch(apiURL+'/users/me/rooms', {
             method: 'POST',
             headers: {
                 'Content-Type':'application/json',
@@ -49,7 +50,7 @@ const createRoom = async (req) => {
 
 const getRooms = async () => {
     try{
-        const res = await fetch(api+'/users/me/rooms', {
+        const res = await fetch(apiURL+'/users/me/rooms', {
             method: 'GET',
             headers: {
                 'Content-Type':'application/json',
@@ -66,7 +67,7 @@ const getRooms = async () => {
 
 const getUserInRoom = async (req) => {
     try{
-        const res = await fetch(api+'/users/me/rooms', {
+        const res = await fetch(apiURL+'/users/me/rooms', {
             method: 'PATCH',
             headers: {
                 'Content-Type':'application/json',

@@ -25,8 +25,8 @@
 
           <div class="compose">
               <form id="message-form">
-                  <input name="inputMessage" placeholder="Message" required autocomplete="off">
-                  <button>Send</button>
+                  <input name="inputMessage" id="chat-message" placeholder="Message" required autocomplete="off">
+                  <button id="send-message">Send</button>
               </form>
           </div>
         </div>
@@ -34,7 +34,7 @@
 
     </div>
 
-    <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+    <script src="http://localhost:3001/socket.io/socket.io.js"></script>
     <script src="./js/chat.js"></script>
   </body>
 </html>

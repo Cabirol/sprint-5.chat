@@ -1,4 +1,4 @@
-const api = 'http://localhost:3000';
+const apiURL = 'http://localhost:3000';
 const signUpButton = document.getElementById('signup');
 const loginButton = document.getElementById('login');
 
@@ -6,7 +6,7 @@ const loginButton = document.getElementById('login');
 
 const postNewUser = async (req) => {
     try{
-        const res = await fetch(api+'/users', {
+        const res = await fetch(apiURL+'/users', {
             method: 'POST',
             headers: {
                 'Content-Type':'application/json'
@@ -31,7 +31,7 @@ const postNewUser = async (req) => {
 
 const loginNewUser = async (req) => {
     try{
-        const res = await fetch(api+'/users/login', {
+        const res = await fetch(apiURL+'/users/login', {
             method: 'POST',
             headers: {
                 'Content-Type':'application/json'
