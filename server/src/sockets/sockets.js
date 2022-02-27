@@ -11,7 +11,7 @@ module.exports = server => {
     });
       
     io.on("connection", (socket) => {
-        console.log('New websocket connection');
+        console.log('New websocket connection'); //posar qui s'ha connectat?
       
         socket.on('join', async (data) => {
             try{
@@ -38,7 +38,6 @@ module.exports = server => {
 
         socket.on('sendMessage', async (message, callback)=>{
             try{
-                console.log(message, 'blibli');
                 const user = await User.findOne({socket: socket.id});
                 io.to(user.room).emit('message', await userMessage(message, user));
                 await callback('Message Delivered');
