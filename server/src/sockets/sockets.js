@@ -11,6 +11,7 @@ module.exports = server => {
     });
       
     io.on("connection", (socket) => {
+
         console.log('New websocket connection'); //posar qui s'ha connectat?
       
         socket.on('join', async (data) => {

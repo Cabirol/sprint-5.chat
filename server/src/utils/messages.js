@@ -26,7 +26,9 @@ const userMessage = async (text, user) =>{
 const dateNow = () =>{
     const today = new Date();
     const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-    const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    const time = today.getHours().toString().padStart(2, "0") + ":" 
+                + today.getMinutes().toString().padStart(2, "0") + ":" 
+                + today.getSeconds().toString().padStart(2, "0");
     const dateTime = date+' '+time;
     return dateTime;
 };

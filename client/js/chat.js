@@ -32,12 +32,12 @@ const autoscroll = () => {
 
 };
 
-console.log(userData, "hello");
+if(!userData.room) location.href='./rooms.html';
 
 socket.emit('join', {user:userData.name, room:userData.room}, (error)=>{
     if (error) {
         alert(error);
-        location.href='/chat.html';
+        window.location='/rooms.html';
     }
 });
 
