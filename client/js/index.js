@@ -39,7 +39,7 @@ const loginNewUser = async (req) => {
             body: JSON.stringify(req)
         });
         const data = await res.json();
-        
+        console.log(data);
         if(data.errors){
             return alert(data.errors);
         }

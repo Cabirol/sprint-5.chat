@@ -13,19 +13,13 @@ const userSchema = new mongoose.Schema({
         minlength: 3,
         maxlength: 10
     },
-    password: {
-        type: String,
-        required: true,
-        trim: true,
-        minlength: 7
+    token: {
+        type: String
     },
     room: {
         type: String,
         trim: true,
         maxlenght: 10,
-    },
-    token: {
-        type: String
     },
     socket: {
         type: String
@@ -33,9 +27,9 @@ const userSchema = new mongoose.Schema({
 
 });
 
-userSchema.methods.generateAuthToken = async function(){
+userSchema.methods.generateAuthToken = async function(password){
     const user = this;
-    const token = jwt.sign({_id: user._id.toString()}, 'tortugues');
+    const token = jwt.sign({_id: user._id.toString()}, password);
     user.token = token;
     await user.save();
     return token;
@@ -50,12 +44,18 @@ userSchema.statics.findByCredentials = async (name, password)=>{
     }
 
     //const isMatch = await bcrypt.compare(password, user.password);
-    const isMatch = password === user.password;
-    if (!isMatch) {
+    const decoded = jwt.verify(user.token, password);
+    console.log(decoded);
+    if (!decoded){
+        throw new Error('Unable to login');
+    }
+    const matchUser = await User.findOne({_id: decoded._id, token: user.token});
+    console.log(matchUser);
+    if (!matchUser) {
         throw new Error('Unable to login');
     }
 
-    return user;
+    return matchUser;
 }
 
 const User = mongoose.model('User', userSchema);
