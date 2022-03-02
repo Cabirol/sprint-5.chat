@@ -6,12 +6,12 @@ const auth = require('../middlewares/auth.js');
 const router = new express.Router();
 
 router.post('/users', async (req, res)=>{
-
-    //const user = new User(req.body);
     try{
         const user = new User({name: req.body.name});
-        if (req.body.password.trim().length<8){
-            return res.status(400).json({errors: true , message:'password must be at least 7 characters long'});
+        if (req.body.password.trim().length<7 || !req.body.name){
+            return res.status(400).json({
+                errors: true, 
+                message:'user name and password needed. Password must be at least 7 characters long'});
         }
         const token = await user.generateAuthToken(req.body.password);
         res.status(201).json({user, token});

@@ -7,6 +7,8 @@ const $messages = document.querySelector("#messages");
 const $messageForm = document.querySelector('#message-form');
 const $messageFormInput = $messageForm.querySelector('input');
 const messageButton = document.getElementById('send-message');
+const roomButton = document.getElementById('change-room');
+const logOutButton = document.getElementById('logout');
 
 const autoscroll = () => {
     //New message element
@@ -32,17 +34,17 @@ const autoscroll = () => {
 
 };
 
+if(!userData) location.href='./rooms.html';
 if(!userData.room) location.href='./rooms.html';
 
 socket.emit('join', {user:userData.name, room:userData.room}, (error)=>{
     if (error) {
         alert(error);
-        window.location='/rooms.html';
+        window.location='./rooms.html';
     }
 });
 
 socket.on('message', (message)=>{
-    console.log(message);
     const html = `<div class="message">
                     <p>
                         <span class="message__name">${message.owner}</span>
@@ -65,6 +67,7 @@ socket.on('roomData', ({room, users})=>{
     document.querySelector('#sidebar').innerHTML = html;
 });
 
+//Enviar un missatge
 messageButton.addEventListener('click', (e)=>{
     e.preventDefault();
 
@@ -76,8 +79,20 @@ messageButton.addEventListener('click', (e)=>{
     
     socket.emit('sendMessage', message.value, (a)=>{
         messageButton.removeAttribute('disabled');
-        $messageFormInput.value = '';//TODO afegir això a la resta de botons
+        $messageFormInput.value = '';
         $messageFormInput.focus();
         console.log(a);
     });
+});
+
+//Canviar de sala
+roomButton.addEventListener('click', (e)=>{
+    e.preventDefault();
+    window.location='./rooms.html';
+});
+
+//Log Out
+logOutButton.addEventListener('click', (e)=>{
+    e.preventDefault();
+    window.location='./index.html';
 });

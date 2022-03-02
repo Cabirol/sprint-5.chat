@@ -1,4 +1,5 @@
 const { Server } = require("socket.io");
+const Message = require("../models/message.js");
 const User = require('../models/user.js');
 const {adminMessage, userMessage} = require('../utils/messages.js');
 const getUsersInRoom = require('../utils/users.js');
@@ -12,23 +13,28 @@ module.exports = server => {
       
     io.on("connection", (socket) => {
 
-        console.log('New websocket connection'); //posar qui s'ha connectat?
+        console.log(`New websocket connection`);
       
         socket.on('join', async (data) => {
             try{
-                const newUserInRoom = await User.findOne({name: data.user, room: data.room});
+                const newUserInRoom = await User.findOne({name: data.user});
+                newUserInRoom.room = data.room;
                 newUserInRoom.socket = socket.id;
                 await newUserInRoom.save();
-                
-                socket.join(newUserInRoom.room);
+                const room = newUserInRoom.room;
 
+                socket.join(room);
+                const oldMessages = await Message.find({room});
+                for (const message of oldMessages){
+                    socket.emit('message', message);
+                }
                 socket.emit('message', adminMessage(`Welcome, ${newUserInRoom.name}`));
-                socket.broadcast.to(newUserInRoom.room)
+                socket.broadcast.to(room)
                 .emit('message', adminMessage(`${newUserInRoom.name} has joined`));
 
-                io.to(newUserInRoom.room).emit('roomData', {
-                    room: newUserInRoom.room,
-                    users: await getUsersInRoom(newUserInRoom.room)
+                io.to(room).emit('roomData', {
+                    room,
+                    users: await getUsersInRoom(room)
                 });
 
             }catch(e){
@@ -56,19 +62,17 @@ module.exports = server => {
                 disconnectedUser.socket = '';
                 disconnectedUser.room = '';
                 await disconnectedUser.save();
-
+                
                 
                 io.to(room).emit('message', adminMessage(`${disconnectedUser.name} has left!`));
                 io.to(room).emit('roomData', {
                     room : room,
                     users: await getUsersInRoom(room)
                 });
-                 
             }catch(e){
                 console.log(e);
             }                    
         });
-      
     });
 
     return io;

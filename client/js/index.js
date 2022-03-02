@@ -1,6 +1,12 @@
 const apiURL = 'http://localhost:3000';
+const $signForm = document.querySelector('#sign-form');
+const $signFormInput = $signForm.querySelector('input');
 const signUpButton = document.getElementById('signup');
+const $logForm = document.querySelector('#log-form');
+const $logFormInput = $logForm.querySelector('input');
 const loginButton = document.getElementById('login');
+
+window.sessionStorage.clear();
 
 //Funcions fetch
 
@@ -14,14 +20,12 @@ const postNewUser = async (req) => {
             body: JSON.stringify(req)
         });
         const data = await res.json();
-        console.log(data);
         if(data.keyPattern){
             return alert('Username already exists');
         }
         if(data.errors){
             return alert(data.message);
         }
-        //L'storage només accepta string.
         window.sessionStorage.setItem('user_data', JSON.stringify(data));
         window.location='./rooms.html';
     }catch(e){
@@ -39,11 +43,9 @@ const loginNewUser = async (req) => {
             body: JSON.stringify(req)
         });
         const data = await res.json();
-        console.log(data);
         if(data.errors){
             return alert(data.errors);
         }
-        //L'storage només accepta string.
         window.sessionStorage.setItem('user_data', JSON.stringify(data));
         window.location='./rooms.html';
     }catch(e){
@@ -59,16 +61,22 @@ signUpButton.addEventListener('click', (e)=>{
     const name = document.getElementById('signName');
     const password = document.getElementById('signPassword');
     const objectData = {name: name.value, password: password.value};
+    
+    $signFormInput.value = '';
+    $signFormInput.focus();
 
     postNewUser(objectData);
 });
-//TODO camp name dels inputs?
+
 loginButton.addEventListener('click', (e)=>{
     e.preventDefault();
 
     const name = document.getElementById('logName');
     const password = document.getElementById('logPassword');
     const objectData = {name: name.value, password: password.value};
+
+    $logFormInput.value = '';
+    $logFormInput.focus();
 
     loginNewUser(objectData);
 });

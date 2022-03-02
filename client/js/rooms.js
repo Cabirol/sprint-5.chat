@@ -1,5 +1,5 @@
 const apiURL = 'http://localhost:3000';
-const userData = JSON.parse(window.sessionStorage.getItem('user_data'));
+var userData = JSON.parse(window.sessionStorage.getItem('user_data'));
 const welcome = document.querySelector('.welcome');
 const roomSidebar = document.querySelector('.buttons_box');
 const newRoomButton = document.getElementById('newRoom');
@@ -84,7 +84,13 @@ const getUserInRoom = async (req) => {
 }
 
 //Coses que s'executen al obrir la pàgina(es carrega nom usuari i botons de sales)
-
+if(userData){
+    const data = userData;
+    data.room = '';
+    data.socket = '';
+    window.sessionStorage.setItem('user_data', JSON.stringify(data));
+    userData = JSON.parse(window.sessionStorage.getItem('user_data'));
+}
 getUser().then(nom => welcome.innerHTML = `<h1>Hello, ${nom}</h1>`);
 
 getRooms().then((rooms)=>{

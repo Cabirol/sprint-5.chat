@@ -3,17 +3,20 @@ chat amb sockets, mongoose, front i end separats
 
 ## Iniciar el server:
 
+Connectar-se al servidor de mongodb
+
 Anar a ./server
 
 npm i
 
-npm run start
+npm start start
 
 ## Iniciar el client
 
-Ara per ara, obrir ./client/index.html al navegador.
+Obrir ./client/index.html al navegador.
 
-## Info sobre l'sprint
+## Dubtes
 
-Sobre les GET forms:
-https://www.youtube.com/watch?v=fNcJuPIZ2WE
+Camp name dels inputs?
+
+
